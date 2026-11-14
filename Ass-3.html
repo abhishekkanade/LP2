@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #eaf2ff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            width: 350px;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #bbb;
+        }
+
+        h2 {
+            color: #2563eb;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 9px 14px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1746a2;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin: 2px;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        hr {
+            border: 1px solid #eee;
+            margin: 20px 0;
+        }
+
+        .dark {
+            background: #222;
+            color: white;
+        }
+
+        .dark .container {
+            background: #333;
+            color: white;
+        }
+
+        .dark input {
+            background: #444;
+            color: white;
+            border-color: #777;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Registration Form</h2>
+        <p>Create your account</p>
+
+        <form id="myForm">
+
+            <input type="text" id="name" placeholder="Full Name">
+            <p id="nameError" class="error"></p>
+
+            <input type="email" id="email" placeholder="Email Address">
+            <p id="emailError" class="error"></p>
+
+            <input type="password" id="password" placeholder="Password">
+            <p id="passError" class="error"></p>
+
+            <input type="text" id="mobile" placeholder="Mobile Number">
+            <p id="mobileError" class="error"></p>
+
+            <button type="submit">Register</button>
+
+        </form>
+
+        <p id="result" class="success"></p>
+
+        <hr>
+
+        <h3>Other Features</h3>
+
+        <button onclick="changeTheme()">Change Theme</button>
+
+        <button onclick="showContent()">Show / Hide</button>
+
+        <p id="details" style="display:none;">
+            Welcome! Thanks for visiting our website.
+        </p>
+
+        <button onclick="formatText()">Bold Text</button>
+
+        <p id="text">Welcome to our Registration Page</p>
+
+        <hr>
+
+        <h3>Countdown Timer</h3>
+
+        <h2 id="timer">10</h2>
+
+        <button onclick="changeContent()">Update Message</button>
+
+        <p id="message">Welcome User!</p>
+
+    </div>
+
+
+    <script>
+
+        // Form Validation
+        document.getElementById("myForm").addEventListener("submit", function(e) {
+
+            e.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let mobile = document.getElementById("mobile").value;
+
+            let valid = true;
+
+            // Clear previous errors
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("passError").innerHTML = "";
+            document.getElementById("mobileError").innerHTML = "";
+            document.getElementById("result").innerHTML = "";
+
+            if (name.trim() == "") {
+                document.getElementById("nameError").innerHTML = "Name is required";
+                valid = false;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById("emailError").innerHTML = "Enter a valid email";
+                valid = false;
+            }
+
+            if (password.length < 6) {
+                document.getElementById("passError").innerHTML = "Minimum 6 characters required";
+                valid = false;
+            }
+
+            if (!/^[0-9]{10}$/.test(mobile)) {
+                document.getElementById("mobileError").innerHTML = "Enter 10 digit mobile number";
+                valid = false;
+            }
+
+            if (valid) {
+                document.getElementById("result").innerHTML =
+                    "Registration Successful!";
+            } else {
+                document.getElementById("result").innerHTML =
+                    "Please correct the errors!";
+            }
+
+        });
+
+
+        // Theme Switching
+        function changeTheme() {
+            document.body.classList.toggle("dark");
+        }
+
+
+        // Show / Hide Content
+        function showContent() {
+
+            let details = document.getElementById("details");
+
+            if (details.style.display == "none") {
+                details.style.display = "block";
+            } else {
+                details.style.display = "none";
+            }
+
+        }
+
+
+        // Text Formatting
+        function formatText() {
+            document.getElementById("text").style.fontWeight = "bold";
+        }
+
+
+        // Dynamic Content
+        function changeContent() {
+            document.getElementById("message").innerHTML =
+                "Your message has been updated!";
+        }
+
+
+        // Countdown Timer
+        let count = 10;
+
+        let countdown = setInterval(function() {
+
+            count--;
+
+            document.getElementById("timer").innerHTML = count;
+
+            if (count == 0) {
+                clearInterval(countdown);
+                document.getElementById("timer").innerHTML = "Time Over";
+            }
+
+        }, 1000);
+
+    </script>
+
+</body>
+</html>

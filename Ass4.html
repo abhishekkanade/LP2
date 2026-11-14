@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Explorer</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .card {
+            border: 1px solid black;
+            padding: 15px;
+            width: 200px;
+        }
+
+        #message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Event Explorer</h2>
+
+    <!-- Search -->
+    <input type="text" id="search" placeholder="Search events">
+
+    <!-- Category Filter -->
+    <select id="category">
+        <option value="All">All Categories</option>
+        <option value="Technical">Technical</option>
+        <option value="Cultural">Cultural</option>
+        <option value="Sports">Sports</option>
+    </select>
+
+    <!-- Date Filter -->
+    <input type="date" id="date">
+
+    <!-- Sorting -->
+    <select id="sort">
+        <option value="none">Sort By</option>
+        <option value="asc">Date: Oldest First</option>
+        <option value="desc">Date: Newest First</option>
+    </select>
+
+    <hr>
+
+    <!-- Event Cards -->
+    <div class="container" id="events"></div>
+
+    <p id="message"></p>
+
+    <script>
+
+        // Array of JSON event objects
+        let eventList = [
+            {
+                name: "Hackathon",
+                category: "Technical",
+                date: "2026-11-20",
+                description: "Coding competition"
+            },
+            {
+                name: "Dance Competition",
+                category: "Cultural",
+                date: "2026-11-25",
+                description: "Dance performance"
+            },
+            {
+                name: "Cricket Tournament",
+                category: "Sports",
+                date: "2026-11-18",
+                description: "College cricket match"
+            },
+            {
+                name: "Web Development Workshop",
+                category: "Technical",
+                date: "2026-11-28",
+                description: "Learn HTML CSS and JavaScript"
+            },
+            {
+                name: "Music Festival",
+                category: "Cultural",
+                date: "2026-12-05",
+                description: "Live music event"
+            }
+        ];
+
+        // Get HTML elements
+        let search = document.getElementById("search");
+        let category = document.getElementById("category");
+        let date = document.getElementById("date");
+        let sort = document.getElementById("sort");
+        let events = document.getElementById("events");
+        let message = document.getElementById("message");
+
+
+        // Display events dynamically
+        function displayEvents(list) {
+
+            events.innerHTML = "";
+
+            if (list.length === 0) {
+                message.innerHTML = "No Results Found";
+                return;
+            }
+
+            message.innerHTML = "";
+
+            list.forEach(function(event) {
+
+                let card = document.createElement("div");
+
+                card.className = "card";
+
+                card.innerHTML = `
+                    <h3>${event.name}</h3>
+                    <p>Category: ${event.category}</p>
+                    <p>Date: ${event.date}</p>
+                    <p>${event.description}</p>
+                `;
+
+                events.appendChild(card);
+
+            });
+        }
+
+
+        // Search, Filter and Sort
+        function filterEvents() {
+
+            let keyword = search.value.toLowerCase();
+            let selectedCategory = category.value;
+            let selectedDate = date.value;
+
+            let filtered = eventList.filter(function(event) {
+
+                let matchKeyword =
+                    event.name.toLowerCase().includes(keyword) ||
+                    event.description.toLowerCase().includes(keyword);
+
+                let matchCategory =
+                    selectedCategory === "All" ||
+                    event.category === selectedCategory;
+
+                let matchDate =
+                    selectedDate === "" ||
+                    event.date === selectedDate;
+
+                return matchKeyword && matchCategory && matchDate;
+
+            });
+
+
+            // Sorting
+            if (sort.value === "asc") {
+                filtered.sort((a, b) =>
+                    new Date(a.date) - new Date(b.date)
+                );
+            }
+
+            if (sort.value === "desc") {
+                filtered.sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
+                );
+            }
+
+            displayEvents(filtered);
+        }
+
+
+        // Event Listeners
+        search.addEventListener("input", filterEvents);
+
+        category.addEventListener("change", filterEvents);
+
+        date.addEventListener("change", filterEvents);
+
+        sort.addEventListener("change", filterEvents);
+
+
+        // Initial Display
+        displayEvents(eventList);
+
+    </script>
+
+</body>
+</html>
