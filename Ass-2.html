@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Timetable</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* Common CSS */
+        body {
+            margin: 0;
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+
+        header, footer {
+            background-color: navy;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        h2 {
+            color: navy;
+        }
+
+        section {
+            background-color: white;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        /* PART A: Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        caption {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 12px;
+        }
+
+        th {
+            background-color: lightblue;
+        }
+
+        /* PART B: Div timetable */
+        .timetable {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .cell {
+            background-color: lightblue;
+            padding: 15px 5px;
+            border: 1px solid navy;
+        }
+
+        .heading {
+            background-color: navy;
+            color: white;
+        }
+
+        .break {
+            background-color: lightyellow;
+        }
+
+        /* PART C: Responsive layout */
+        .container {
+            display: flex;
+            gap: 15px;
+            margin: 15px;
+        }
+
+        .content {
+            flex: 3;
+            background-color: white;
+            padding: 15px;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: lightblue;
+            padding: 15px;
+        }
+
+        /* Mobile screen */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .timetable {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>ABC Engineering College</h1>
+    <p>Department of Information Technology</p>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="#partA">Timetable</a>
+    <a href="#partB">Div Layout</a>
+    <a href="#partC">Infrastructure</a>
+    <a href="#debug">Debugging</a>
+</nav>
+
+
+<!-- PART A: HTML TABLE -->
+<section id="partA">
+
+    <h2>Part A: Class Timetable Using HTML Table</h2>
+
+    <table>
+        <caption>Weekly Class Timetable - SY IT</caption>
+
+        <tr>
+            <th>Day</th>
+            <th>9-10 AM</th>
+            <th>10-11 AM</th>
+            <th>11-12 PM</th>
+            <th>12-1 PM</th>
+            <th>1-2 PM</th>
+        </tr>
+
+        <tr>
+            <th>Monday</th>
+            <td>Java</td>
+            <td>DBMS</td>
+            <td rowspan="2">Web Tech Lab</td>
+            <td rowspan="2">Web Tech Lab</td>
+            <td rowspan="5">Lunch</td>
+        </tr>
+
+        <tr>
+            <th>Tuesday</th>
+            <td>CN</td>
+            <td>Java</td>
+        </tr>
+
+        <tr>
+            <th>Wednesday</th>
+            <td>DBMS</td>
+            <td>CN</td>
+            <td>Java</td>
+            <td>OS</td>
+        </tr>
+
+        <tr>
+            <th>Thursday</th>
+            <td colspan="2">Python Lab</td>
+            <td>DBMS</td>
+            <td>CN</td>
+        </tr>
+
+        <tr>
+            <th>Friday</th>
+            <td>Java</td>
+            <td>OS</td>
+            <td colspan="2">Project Work</td>
+        </tr>
+
+    </table>
+
+    <p><b>Note:</b> This timetable demonstrates rowspan and colspan.</p>
+
+</section>
+
+
+<!-- PART B: DIV AND SPAN -->
+<section id="partB">
+
+    <h2>Part B: Timetable Using DIV and SPAN</h2>
+
+    <div class="timetable">
+
+        <div class="cell heading">Day</div>
+        <div class="cell heading">9-10</div>
+        <div class="cell heading">10-11</div>
+        <div class="cell heading">11-12</div>
+        <div class="cell heading">12-1</div>
+        <div class="cell heading">1-2</div>
+
+        <div class="cell">Monday</div>
+        <div class="cell">Java</div>
+        <div class="cell">DBMS</div>
+        <div class="cell">Web Lab</div>
+        <div class="cell">Web Lab</div>
+        <div class="cell break"><span>Lunch</span></div>
+
+        <div class="cell">Tuesday</div>
+        <div class="cell">CN</div>
+        <div class="cell">Java</div>
+        <div class="cell">Web Lab</div>
+        <div class="cell">Web Lab</div>
+        <div class="cell break">Lunch</div>
+
+        <div class="cell">Wednesday</div>
+        <div class="cell">DBMS</div>
+        <div class="cell">CN</div>
+        <div class="cell">Java</div>
+        <div class="cell">OS</div>
+        <div class="cell break">Lunch</div>
+
+    </div>
+
+    <h3>Audio Content</h3>
+    <audio controls>
+        <source src="audio.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+
+    <h3>Video Content</h3>
+    <video width="300" controls>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support video.
+    </video>
+
+    <h3>College Website</h3>
+    <p>
+        Visit our
+        <a href="https://www.google.com" target="_blank">External Website</a>
+    </p>
+
+</section>
+
+
+<!-- PART C: RESPONSIVE LAYOUT -->
+<section id="partC">
+
+    <h2>Part C: University Infrastructure</h2>
+
+    <div class="container">
+
+        <div class="content">
+
+            <h3>College Infrastructure</h3>
+
+            <p>
+                Our college provides modern infrastructure
+                for quality technical education.
+            </p>
+
+            <h3>Facilities</h3>
+
+            <ul>
+                <li>Computer Laboratory</li>
+                <li>Central Library</li>
+                <li>Seminar Hall</li>
+                <li>Sports Ground</li>
+                <li>Wi-Fi Campus</li>
+            </ul>
+
+            <h3>Computer Laboratory</h3>
+            <p>
+                The laboratory provides computers,
+                internet access and practical facilities.
+            </p>
+
+        </div>
+
+        <div class="sidebar">
+
+            <h3>Quick Information</h3>
+
+            <p>University: ABC University</p>
+            <p>Department: IT</p>
+            <p>Location: Nashik</p>
+            <p>Email: info@college.com</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PART D: DEBUGGING -->
+<section id="debug">
+
+    <h2>Part D: Debugging Challenge</h2>
+
+    <h3>Common Errors and Corrections</h3>
+
+    <ol>
+        <li>
+            Incorrect: Missing closing table tag.
+            <br>
+            Correct: Always close with &lt;/table&gt;.
+        </li>
+
+        <li>
+            Incorrect: Using colspan="2" but forgetting
+            that it occupies two columns.
+            <br>
+            Correct: Adjust the remaining cells accordingly.
+        </li>
+
+        <li>
+            Incorrect: Using rowspan="2" without removing
+            the next row's occupied cell.
+            <br>
+            Correct: Do not add another cell in that position.
+        </li>
+
+        <li>
+            Incorrect: Missing border-collapse.
+            <br>
+            Correct: Use border-collapse: collapse.
+        </li>
+
+        <li>
+            Incorrect: Fixed-width layout on mobile.
+            <br>
+            Correct: Use CSS media queries and flexible layouts.
+        </li>
+    </ol>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+    <p>ABC Engineering College | Department of IT</p>
+    <p>All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
