@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            width: 650px;
+            margin: auto;
+            border-radius: 8px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 8px 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Admin Login -->
+    <div id="login">
+        <h2>Admin Login</h2>
+
+        <input id="user" placeholder="Username">
+        <input id="pass" type="password" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+    </div>
+
+
+    <!-- Admin Dashboard -->
+    <div id="dashboard" style="display:none">
+
+        <h2>Admin Dashboard</h2>
+
+        <h3>Manage Events</h3>
+
+        <input id="name" placeholder="Event Name">
+        <input id="date" type="date">
+
+        <button onclick="addEvent()">Add Event</button>
+
+        <h3>Event List</h3>
+
+        <table>
+            <tr>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+
+            <tbody id="list"></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // Admin Login
+    function login() {
+
+        if (user.value == "admin" && pass.value == "1234") {
+
+            document.getElementById("login").style.display = "none";
+            document.getElementById("dashboard").style.display = "block";
+
+        } else {
+            alert("Invalid Login");
+        }
+    }
+
+
+    let events = [];
+    let edit = -1;
+
+
+    // Add or Update Event
+    function addEvent() {
+
+    let eventName = document.getElementById("name").value;
+    let eventDate = document.getElementById("date").value;
+
+    if (eventName == "" || eventDate == "") {
+        alert("Enter all details");
+        return;
+    }
+
+    let event = {
+        name: eventName,
+        date: eventDate
+    };
+
+    if (edit == -1)
+        events.push(event);
+    else {
+        events[edit] = event;
+        edit = -1;
+    }
+
+    document.getElementById("name").value = "";
+    document.getElementById("date").value = "";
+
+    display();
+}
+
+
+    // Display Events
+    function display() {
+
+        list.innerHTML = "";
+
+        events.forEach((e, i) => {
+
+            list.innerHTML += `
+                <tr>
+                    <td>${e.name}</td>
+                    <td>${e.date}</td>
+                    <td>
+                        <button onclick="editEvent(${i})">Edit</button>
+                        <button onclick="deleteEvent(${i})">Delete</button>
+                    </td>
+                </tr>
+            `;
+
+        });
+    }
+
+
+    // Edit Event
+    function editEvent(i) {
+
+    document.getElementById("name").value = events[i].name;
+    document.getElementById("date").value = events[i].date;
+
+    edit = i;
+}
+
+
+    // Delete Event
+    function deleteEvent(i) {
+
+        events.splice(i, 1);
+
+        display();
+    }
+
+</script>
+
+</body>
+</html>
